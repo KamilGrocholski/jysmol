@@ -28,16 +28,16 @@
 ### How to run in a specific language
 
 #### command
-make [language] FILE=[optional/file/path]
+make [language] INPUT=[optional input to parse]
 
-#### example with the default file
+#### example with the default input
 ```bash
 make typescript 
 ```
 
-#### example with your file
+#### example with your input
 ```bash
-make typescript FILE=path/to/file
+make typescript INPUT='["key1": "value1",]'
 ```
 
 ### Implemented in

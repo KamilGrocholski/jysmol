@@ -1,5 +1,10 @@
 # jysmol-python
 
+To parse and stringify:
+```bash
+python3 input.py '[{"key1": "value1",},]'
+```
+
 To test parser:
 
 ```bash

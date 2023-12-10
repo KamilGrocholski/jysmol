@@ -8,6 +8,11 @@ To install dependencies:
 bun install
 ```
 
+To parse and stringify:
+
+```bash
+bun run src/input.ts '[{"key1": "value1",},]'
+
 To test:
 
 ```bash
