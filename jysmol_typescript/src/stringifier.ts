@@ -3,7 +3,7 @@ export class JysmolStringifier {
         return JysmolStringifier.stringifyByValue(input)
     }
 
-    static stringifyByValue(value: unknown): string {
+    static stringifyByValue(value: unknown, stack?: Set<unknown>): string {
         if (value === undefined) throw new Error('unsupported type')
 
         const type = typeof(value)
@@ -15,18 +15,25 @@ export class JysmolStringifier {
         }
 
         if (value === null) return 'null'
-        if (Array.isArray(value)) return this.stringifyArray(value)
-        if (type === 'object') return this.stringifyObject(value)
+        if (Array.isArray(value)) {
+            return this.stringifyArray(value, stack ?? new Set<unknown>())
+        }
+        if (type === 'object') { 
+            return this.stringifyObject(value, stack ?? new Set<unknown>())
+        }
 
         throw new Error('unsupported type')
     }
 
-    static stringifyObject(obj: object): string {
+    static stringifyObject(obj: object, stack: Set<unknown>): string {
         let out = '{'
 
+        if (stack.has(obj)) this.throwCyclicReferenceError()
+
         for (const [key, value] of Object.entries(obj)) {
+
             const stringifiedKey = `"${key}"`
-            const stringifiedValue = JysmolStringifier.stringifyByValue(value)
+            const stringifiedValue = this.stringifyByValue(value, stack)
 
             out += stringifiedKey
             out += ":"
@@ -36,19 +43,29 @@ export class JysmolStringifier {
 
         out += '}'
 
+        stack.delete(obj)
+
         return out
     }
 
-    static stringifyArray(arr: unknown[]): string {
+    static stringifyArray(arr: unknown[], stack: Set<unknown>): string {
         let out = "["
 
+        if (stack.has(arr)) this.throwCyclicReferenceError()
+
         for (const el of arr) {
-            out += JysmolStringifier.stringifyByValue(el)
+            out += JysmolStringifier.stringifyByValue(el, stack)
             out += ','
         }
 
         out += ']'
 
+        stack.delete(arr)
+
         return out
+    }
+
+    static throwCyclicReferenceError(): void {
+        throw new Error('circular reference')
     }
 }

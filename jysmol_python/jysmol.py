@@ -6,4 +6,4 @@ class Jysmol:
     def parse(input): return JysmolParser.parse(input)
 
     @staticmethod
-    def stringify(value): return stringify_value(value)
+    def stringify(value): return stringify_value(value, {})

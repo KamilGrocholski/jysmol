@@ -19,8 +19,14 @@ function M.stringify_number(value)
     return '' .. value .. ''
 end
 
-function M.stringify_array(arr)
+function M.stringify_array(arr, stack)
     local str = '['
+
+    if stack[arr] then
+        error('circular reference error')
+    end
+
+    stack[arr] = true
 
     for _, el in ipairs(arr) do
         str = str .. M.stringify_value(el) .. ','
@@ -28,11 +34,19 @@ function M.stringify_array(arr)
 
     str = str .. ']'
 
+    stack[arr] = nil
+
     return str
 end
 
-function M.stringify_object(obj)
+function M.stringify_object(obj, stack)
     local str = '{'
+
+    if stack[obj] then
+        error('circular reference error')
+    end
+
+    stack[obj] = true
 
     for key, value in pairs(obj) do
         str = str .. M.stringify_string(key) .. ':' .. M.stringify_value(value) .. ','
@@ -40,10 +54,12 @@ function M.stringify_object(obj)
 
     str = str .. '}'
 
+    stack[obj] = nil
+
     return str
 end
 
-function M.stringify_value(value)
+function M.stringify_value(value, stack)
     if value == nil then return 'null' -- TODO useless in table
     elseif value == true then return 'true'
     elseif value == false then return 'false'
@@ -55,9 +71,9 @@ function M.stringify_value(value)
     elseif val_type == 'number' then return M.stringify_number(value)
     elseif val_type == 'table' then
         if is_array(value) then
-            return M.stringify_array(value)
+            return M.stringify_array(value, stack or {})
         end
-        return M.stringify_object(value)
+        return M.stringify_object(value, stack or {})
     end
 
     error('unsupported type' .. val_type)

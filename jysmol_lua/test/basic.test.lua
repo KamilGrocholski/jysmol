@@ -26,4 +26,14 @@ assert(Jysmol.stringify({k="val"}) == '{"k":"val",}', "String pair")
 assert(Jysmol.stringify({k={"1"}}) == '{"k":["1",],}', "Array pair")
 assert(Jysmol.stringify({k={k="1"}}) == '{"k":{"k":"1",},}', "Pair pair")
 
+local arr = {}
+arr[1] = arr
+local circular_arr_is_ok = pcall(Jysmol.stringify, arr)
+assert(circular_arr_is_ok == false)
+
+local obj = {}
+obj[1] = obj
+local circular_obj_is_ok = pcall(Jysmol.stringify, obj)
+assert(circular_obj_is_ok == false)
+
 print("All test cases passed!")

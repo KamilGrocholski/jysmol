@@ -178,3 +178,17 @@ describe('strinfigy and parse', () => {
         expect(parsed).toEqual(num)
     })
 })
+
+describe('Cyclic reference', () => {
+    test('array', () => {
+        const arr: unknown[][] = []
+        arr.push(arr)
+        expect(() => Jysmol.stringify(arr)).toThrow()
+    })
+
+    test('object', () => {
+        const obj: Record<string, unknown> = {}
+        obj['cir'] = obj
+        expect(() => Jysmol.stringify(obj)).toThrow()
+    })
+})

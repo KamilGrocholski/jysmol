@@ -44,7 +44,15 @@ class TestStringify(unittest.TestCase):
         data = False
         self.assertEqual(Jysmol.parse(Jysmol.stringify(data)), data)
 
+    def test_circuler_reference_array(self):
+        data = []
+        data.append(data)
+        self.assertRaises(Exception, Jysmol.stringify, data)
+
+    def test_circuler_reference_object(self):
+        data = {}
+        data['cir'] = data
+        self.assertRaises(Exception, Jysmol.stringify, data)
+
 if __name__ == '__main__':
     unittest.main()
-
-
