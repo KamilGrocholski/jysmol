@@ -14,7 +14,7 @@ b_typescript:
 	else \
 		docker inspect -f '{{.Id}}' $(TYPESCRIPT) > /dev/null 2>&1 && \
 			echo "Docker image '$(TYPESCRIPT)' already exists." || \
-			echo "Use 'make build BUILD=true' to force a build."; \
+			docker build -t $(TYPESCRIPT) -f ./$(TYPESCRIPT)/Dockerfile . && echo "Docker image '$(TYPESCRIPT)' built successfully."; \
 	fi
 
 typescript: b_typescript
@@ -26,7 +26,7 @@ b_python:
 	else \
 		docker inspect -f '{{.Id}}' $(PYTHON) > /dev/null 2>&1 && \
 			echo "Docker image '$(PYTHON)' already exists." || \
-			echo "Use 'make build BUILD=true' to force a build."; \
+			docker build -t $(PYTHON) -f ./$(PYTHON)/Dockerfile . && echo "Docker image '$(PYTHON)' built successfully."; \
 	fi
 
 python: b_python
@@ -39,7 +39,7 @@ b_lua:
 	else \
 		docker inspect -f '{{.Id}}' $(LUA) > /dev/null 2>&1 && \
 			echo "Docker image '$(LUA)' already exists." || \
-			echo "Use 'make build BUILD=true' to force a build."; \
+			docker build -t $(LUA) -f ./$(LUA)/Dockerfile . && echo "Docker image '$(LUA)' built successfully."; \
 	fi
 
 lua: b_lua
