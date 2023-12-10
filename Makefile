@@ -1,4 +1,4 @@
-INPUT='[{"key1": "value1", "key2": 1234, "key3": [1,2,],},]'
+INPUT='[  12 ,34,  { "key1" : "value1", "key2"  :   [ ] , "key3": { }, } ,]'
 
 BUILD=false
 

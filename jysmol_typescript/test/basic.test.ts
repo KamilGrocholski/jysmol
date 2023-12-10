@@ -63,12 +63,12 @@ describe('arrays', () => {
     })
 
     test('array with strings', () => {
-        expect(Jysmol.parse('["some string", "next string",]'))
+        expect(Jysmol.parse('[ "some string" ,  "next string", ]'))
             .toEqual(["some string", "next string"])
     })
 
     test('array with arrays', () => {
-        expect(Jysmol.parse('[[], ["string",], [1,],]'))
+        expect(Jysmol.parse('[ [ ],[ "string",], [1 , ] , ]'))
             .toEqual([[], ["string"], [1]])
     })
 
@@ -89,17 +89,17 @@ describe('objects', () => {
     })
 
     test('object with strings', () => {
-        expect(Jysmol.parse('{"val1": "str1", "val2": "str2",}'))
+        expect(Jysmol.parse('{ "val1": "str1" , "val2": "str2" , }'))
             .toEqual({"val1": "str1", "val2": "str2"})
     })
 
     test('object with arrays', () => {
-        expect(Jysmol.parse('{"val1": [], "val2": [1,], "val3": ["str",],}'))
+        expect(Jysmol.parse('{ "val1": [ ], "val2": [1 , ] , "val3": [ "str",],}'))
             .toEqual({val1: [], val2: [1], val3: ["str"]})
     })
 
     test('object with objects', () => {
-        expect(Jysmol.parse('{"val1": {}, "val2": {"val1": 1,}, "val3": {"val1": "str",},}'))
+        expect(Jysmol.parse('{ "val1": { }, "val2": { "val1": 1, } , "val3" : { "val1": "str",},}'))
             .toEqual({val1: {}, val2: {val1: 1}, val3: {val1:"str"}})
     }) 
 })

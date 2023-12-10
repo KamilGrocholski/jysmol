@@ -54,6 +54,7 @@ class JysmolParser:
     def __parse_array(self):
         arr = []
         self.__advance()
+        self.__skip_whitespace()
 
         while (self.ch != ']' and self.position < self.input_len):
             arr.append(self.__parse_value())

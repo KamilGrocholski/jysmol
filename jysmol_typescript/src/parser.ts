@@ -38,7 +38,7 @@ export class JysmolParser {
         }
 
         if (isAlpha(this.ch)) return this.parseKeywordValue()
-        
+
         throw new Error(`unexpected token: '${this.ch}', at position ${this.position}`)
     }
 
@@ -77,6 +77,8 @@ export class JysmolParser {
             this.skipWhitespace()
         }
 
+        this.skipWhitespace()
+
         this.eat('}')
 
         return obj
@@ -85,6 +87,7 @@ export class JysmolParser {
     private parseArray(): JysmolArray {
         const arr: JysmolArray = []
         this.advance()
+        this.skipWhitespace()
 
         while(this.ch !== ']' && this.position < this.input.length) {
             const value = this.parseValue()
@@ -148,7 +151,11 @@ export class JysmolParser {
 
     private advance(): void {
         this.position++
-        this.ch = this.input[this.position]
+        if (this.position < this.input.length) {
+            this.ch = this.input[this.position]
+        } else {
+            this.ch = '\0'
+        }
     }
 
     private skipWhitespace(): void {
@@ -169,3 +176,5 @@ function isDigit(ch: string): boolean {
 function isAlpha(ch: string): boolean {
     return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z'
 }
+
+console.log(JysmolParser.parse('[ 1, ]'))

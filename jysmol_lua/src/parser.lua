@@ -63,9 +63,11 @@ function JysmolParser:parse_array()
     local arr = {}
     local i = 0
     self.advance(self)
+    self.skip_whitespace(self)
 
     while self.ch ~= ']' and self.position <= self.input_len do
-        arr[0] = self.parse_value(self)
+        arr[i] = self.parse_value(self)
+        i = i + 1
         self.skip_whitespace(self)
         self.eat(self, ',')
         self.skip_whitespace(self)
