@@ -61,7 +61,7 @@ end
 
 function JysmolParser:parse_array()
     local arr = {}
-    local i = 0
+    local i = 1
     self.advance(self)
     self.skip_whitespace(self)
 
@@ -105,6 +105,7 @@ function JysmolParser:parse_number()
     while self.ch == "." do
         lit = lit .. "."
         self.advance(self)
+        lit = lit .. self.parse_int_literal(self)
     end
 
     return tonumber(lit)
@@ -167,7 +168,7 @@ function IsDigit(ch)
 end
 
 function IsAlpha(ch)
-   return string.match(ch, '[a-zA-Z]')
+   return ch >= 'a' and ch <= 'z' or ch >= 'A' and ch <= 'Z'
 end
 
 local M = {}

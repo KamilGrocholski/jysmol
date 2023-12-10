@@ -176,5 +176,3 @@ function isDigit(ch: string): boolean {
 function isAlpha(ch: string): boolean {
     return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z'
 }
-
-console.log(JysmolParser.parse('[ 1, ]'))

@@ -1,4 +1,4 @@
-INPUT='[  12 ,34,  { "key1" : "value1", "key2"  :   [ ] , "key3": { }, } ,]'
+INPUT='[  12 ,34,  { "key1" : "value1", "key2"  :   [ ] , "key3": { }, } , true, false, {"k1": true,} , -234, 134, -18.2 , 28.1 , ]'
 
 BUILD=false
 

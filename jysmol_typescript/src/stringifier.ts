@@ -52,4 +52,3 @@ export class JysmolStringifier {
         return out
     }
 }
-
