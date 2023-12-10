@@ -47,12 +47,18 @@ class TestStringify(unittest.TestCase):
     def test_circuler_reference_array(self):
         data = []
         data.append(data)
-        self.assertRaises(Exception, Jysmol.stringify, data)
+        with self.assertRaises(Exception) as context:
+            Jysmol.stringify(data)
+
+        self.assertEqual(str(context.exception), 'circular reference')
 
     def test_circuler_reference_object(self):
         data = {}
         data['cir'] = data
-        self.assertRaises(Exception, Jysmol.stringify, data)
+        with self.assertRaises(Exception) as context:
+            Jysmol.stringify(data)
+
+        self.assertEqual(str(context.exception), 'circular reference')
 
 if __name__ == '__main__':
     unittest.main()
