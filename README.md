@@ -1,6 +1,6 @@
 # JYSMOL
 
-## Like the JSON but not, works as good as a przeworszczanin on Domestos Haze
+## Like the JSON but not. I've done studies, you know. 60% of the time, it works every time
 
 ### Desc
 
