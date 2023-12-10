@@ -28,7 +28,7 @@ export class JysmolStringifier {
     static stringifyObject(obj: object, stack: Set<unknown>): string {
         let out = '{'
 
-        if (stack.has(obj)) this.throwCyclicReferenceError()
+        if (stack.has(obj)) this.throwCircularReferenceError()
         stack.add(obj)
 
         for (const [key, value] of Object.entries(obj)) {
@@ -52,7 +52,7 @@ export class JysmolStringifier {
     static stringifyArray(arr: unknown[], stack: Set<unknown>): string {
         let out = "["
 
-        if (stack.has(arr)) this.throwCyclicReferenceError()
+        if (stack.has(arr)) this.throwCircularReferenceError()
         stack.add(arr)
 
         for (const el of arr) {
@@ -67,7 +67,7 @@ export class JysmolStringifier {
         return out
     }
 
-    static throwCyclicReferenceError(): void {
+    static throwCircularReferenceError(): void {
         throw new Error('circular reference')
     }
 }

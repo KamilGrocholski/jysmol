@@ -179,7 +179,7 @@ describe('strinfigy and parse', () => {
     })
 })
 
-describe('Cyclic reference', () => {
+describe('Circular reference', () => {
     test('array', () => {
         const arr: unknown[][] = []
         arr.push(arr)
