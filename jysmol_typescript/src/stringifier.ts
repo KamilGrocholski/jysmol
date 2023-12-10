@@ -29,6 +29,7 @@ export class JysmolStringifier {
         let out = '{'
 
         if (stack.has(obj)) this.throwCyclicReferenceError()
+        stack.add(obj)
 
         for (const [key, value] of Object.entries(obj)) {
 
@@ -52,6 +53,7 @@ export class JysmolStringifier {
         let out = "["
 
         if (stack.has(arr)) this.throwCyclicReferenceError()
+        stack.add(arr)
 
         for (const el of arr) {
             out += JysmolStringifier.stringifyByValue(el, stack)
