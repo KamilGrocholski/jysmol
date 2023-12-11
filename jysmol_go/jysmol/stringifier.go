@@ -50,7 +50,7 @@ func stringifyFloat(value float64) (string, error) {
 func stringifyArray(arr JysmolArray) (string, error) {
 	lit := "["
 
-	for el := range arr {
+	for _, el := range arr {
 		v, err := stringifyValue(el)
 		if err != nil {
 			return "", err
