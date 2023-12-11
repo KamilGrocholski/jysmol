@@ -5,8 +5,9 @@ BUILD=false
 TYPESCRIPT=jysmol_typescript
 PYTHON=jysmol_python
 LUA=jysmol_lua
+GO=jysmol_go
 
-.PHONY: b_typescript typescript b_python python b_lua lua
+.PHONY: b_typescript typescript b_python python b_lua lua b_go go
 
 b_typescript:
 	@if [ "$(BUILD)" = "true" ]; then \
@@ -44,3 +45,15 @@ b_lua:
 
 lua: b_lua
 	docker run $(LUA) lua src/input.lua $(INPUT)
+
+b_go:
+	@if [ "$(BUILD)" = "true" ]; then \
+		docker build -t $(GO) -f ./$(GO)/Dockerfile . && echo "Docker image '$(GO)' built successfully."; \
+	else \
+		docker inspect -f '{{.Id}}' $(GO) > /dev/null 2>&1 && \
+			echo "Docker image '$(GO)' already exists." || \
+			docker build -t $(GO) -f ./$(GO)/Dockerfile . && echo "Docker image '$(GO)' built successfully."; \
+	fi
+
+go: b_go
+	docker run $(GO) ./input $(INPUT)

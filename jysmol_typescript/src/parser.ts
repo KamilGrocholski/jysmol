@@ -137,7 +137,7 @@ export class JysmolParser {
             this.advance()
         }
 
-        this.advance()
+        this.eat('"')
 
         return lit
     }
