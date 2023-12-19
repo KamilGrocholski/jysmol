@@ -114,7 +114,6 @@ func (p *JysmolParser) parseObject() (JysmolObject, error) {
 		if err != nil {
 			return nil, err
 		}
-		p.skipWhitespace()
 		if err := p.eat(','); err != nil {
 			return nil, err
 		}
@@ -137,7 +136,7 @@ func (p *JysmolParser) parseNumber() (float64, error) {
 	}
 	lit += l
 
-	for p.ch == '.' && p.position < p.inputLen {
+	if p.ch == '.' {
 		if err := p.eat('.'); err != nil {
 			return 0, err
 		}

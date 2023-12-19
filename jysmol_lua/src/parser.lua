@@ -102,7 +102,7 @@ end
 function JysmolParser:parse_number()
     local lit = self.parse_int_literal(self)
 
-    while self.ch == "." do
+    if self.ch == "." then
         lit = lit .. "."
         self.advance(self)
         lit = lit .. self.parse_int_literal(self)

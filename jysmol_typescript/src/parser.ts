@@ -106,11 +106,11 @@ export class JysmolParser {
     private parseNumber(): number {
         let numberComponents = this.parseIntegerLiteral()
 
-        while (this.ch === '.' && this.position < this.input.length) {
+        if (this.ch === '.' ) {
             this.advance()
             numberComponents += '.'
             const newIntegerLiteral = this.parseIntegerLiteral()
-            if (!newIntegerLiteral) throw new Error(`an integer must be followed by: '.'`)
+            if (!newIntegerLiteral) throw new Error(`. without digit`)
             numberComponents += newIntegerLiteral
         }
 

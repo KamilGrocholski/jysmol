@@ -99,15 +99,13 @@ class JysmolParser:
 
     def __parse_number(self):
         lit = self.__parse_integer_literal()
-        has_dot = False
 
-        while (self.ch == '.' and self.position < self.input_len):
-            has_dot = True
+        if (self.ch == '.'):
             self.__advance()
             lit += '.'
             lit += self.__parse_integer_literal()
+            return float(lit)
 
-        if (has_dot): return float(lit)
         return int(lit)
 
     def __parse_integer_literal(self):
