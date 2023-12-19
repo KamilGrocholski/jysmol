@@ -43,13 +43,15 @@ export class JysmolParser {
     }
 
     private parseKeywordValue(): null | boolean {
-        let keyword = ''
+        const start = this.position
+        let end = this.position
 
         while (isAlpha(this.ch) && this.position < this.input.length) {
-            keyword += this.ch
+            end++
             this.advance()
         }
 
+        const keyword = this.input.slice(start, end)
         switch (keyword) {
             case 'null': return null
             case 'true': return true
@@ -118,28 +120,30 @@ export class JysmolParser {
     }
 
     private parseIntegerLiteral(): string {
-        let lit = ""
+        const start = this.position
+        let end = this.position
 
         while(isDigit(this.ch) && this.position < this.input.length) {
-            lit += this.ch
+            end++
             this.advance()
         }
 
-        return lit
+        return this.input.slice(start, end)
     }
 
     private parseString(): string {
-        let lit = ""
         this.advance()
+        const start = this.position
+        let end = this.position
 
         while(this.ch !== '"' && this.position < this.input.length) {
-            lit += this.ch
+            end++
             this.advance()
         }
 
         this.eat('"')
 
-        return lit
+        return this.input.slice(start, end)
     }
 
     private eat(ch: string): void {

@@ -9,5 +9,3 @@ void ht_set(ht *ht, char *key, void *value) {
 void *ht_get(ht *ht, char *key);
 
 void ht_remove();
-
-size_t ht_size(ht *ht);

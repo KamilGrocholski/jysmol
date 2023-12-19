@@ -22,7 +22,6 @@ jysmol_value *jysmol_parse(jysmol_parser *p) {
 
 jysmol_value *parse_value(jysmol_parser *p) {
   skip_whitespace(p);
-  printf("char: |%c|\n", p->ch);
   switch (p->ch) {
   case '"':
     return parse_string(p);
@@ -65,27 +64,27 @@ jysmol_value *parse_array(jysmol_parser *p) {
 
 jysmol_value *parse_string(jysmol_parser *p) {
   advance(p);
+  size_t start = p->position;
+  size_t end = p->position;
 
   jysmol_value *val = (jysmol_value *)malloc(sizeof(jysmol_value));
   val->type = JYSMOL_STRING;
 
-  size_t i = 0;
-  size_t cap = 4;
-  char *str = (char *)malloc(sizeof(char) * cap);
-
   while (p->ch != '"' && p->position < p->size) {
-    if (i >= cap) {
-      cap = cap * 2;
-      str = realloc(str, sizeof(char) * cap);
-    }
-    memcpy(str, str, i);
-    str[i] = p->ch;
-    i++;
+    end++;
     advance(p);
   }
 
+  size_t size = end - start;
+  char *str = (char *)malloc(sizeof(char) * size);
+
+  for (size_t i = 0; i < end; i++) {
+    str[i] = p->input[i + start];
+  }
+
+  str[size] = '\0';
+
   val->u.string = str;
-  printf("str: %s\n", val->u.string);
   advance(p);
 
   return val;

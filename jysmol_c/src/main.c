@@ -4,9 +4,9 @@
 
 int main() {
   jysmol_parser *p = (jysmol_parser *)malloc(sizeof(jysmol_parser));
-  char *input = "1234.2";
+  /* char *input = "1234.2"; */
   /* char *input = "[\"okej\",]"; */
-  /* char *input = "\"okej\""; */
+  char *input = "\"okej\"";
   p->input = input;
   p->size = 6;
   /* p->size = 9; */
@@ -16,8 +16,8 @@ int main() {
 
   jysmol_value *value = jysmol_parse(p);
 
-  printf("%f", value->u.float_num);
-  /* printf("%s", value->u.string); */
+  /* printf("%f", value->u.float_num); */
+  printf("%s", value->u.string);
   /* printf("%s", ((jysmol_value *)(value->u.array->items[0]))->u.string); */
   /* printf("%lu", value->u.array->size); */
   /* char *item = "ok"; */
