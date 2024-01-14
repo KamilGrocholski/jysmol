@@ -24,7 +24,6 @@ python3 performance.test.py
 ```
 
 ## blazingly fast, at least (:O :d) times slower
-### time in ms
 
 ```bash
 items:, 1000
