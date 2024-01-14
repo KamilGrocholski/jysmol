@@ -20,7 +20,6 @@ bun test
 ```
 
 ## blazingly fast, at least 15 times slower
-### time in ms
 
 ```bash
 test/performance.test.ts:
